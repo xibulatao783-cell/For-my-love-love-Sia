@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 🤍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- PAGE 1: PASSCODE -->
+  <div class="page" id="passcode-page">
+    <div class="lock-icon">🔐</div>
+    <div class="card">
+      <h2>Enter the Secret Code</h2>
+      <p>para sa espesyal na tao 🤍</p>
+      <div class="dots-display" id="dots"></div>
+      <div class="numpad">
+        <button class="num-btn" onclick="addNum('1')">1</button>
+        <button class="num-btn" onclick="addNum('2')">2</button>
+        <button class="num-btn" onclick="addNum('3')">3</button>
+        <button class="num-btn" onclick="addNum('4')">4</button>
+        <button class="num-btn" onclick="addNum('5')">5</button>
+        <button class="num-btn" onclick="addNum('6')">6</button>
+        <button class="num-btn" onclick="addNum('7')">7</button>
+        <button class="num-btn" onclick="addNum('8')">8</button>
+        <button class="num-btn" onclick="addNum('9')">9</button>
+        <button class="num-btn" onclick="clearNum()">C</button>
+        <button class="num-btn" onclick="addNum('0')">0</button>
+        <button class="num-btn del" onclick="deleteNum()">⌫</button>
+      </div>
+      <div id="error-msg">Wrong code, try again 🤍</div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: FORGIVENESS -->
+  <div class="page hidden" id="forgive-page">
+    <div class="forgive-card">
+      <div class="cat-emoji">🐱</div>
+      <div class="crying-eyes">｡°(°.◜ᯅ◝°)°｡</div>
+      <h2 class="forgive-title">Will you forgive me, love?</h2>
+      <p class="forgive-sub">Please...</p>
+      <div class="btn-row">
+        <button class="yes-btn" onclick="goToMessage()">Yes 🤍</button>
+        <button class="no-btn" id="no-btn" onmouseover="moveNoBtn()" ontouchstart="moveNoBtn()">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: MESSAGE -->
+  <div class="page hidden" id="message-page">
+    <div class="msg-card">
+      <div class="msg-emoji">🌸</div>
+      <div class="msg-title">For you, baby 🤍</div>
+      <p class="msg-body">
+        Baby, I'm genuinely sorry. I know I hurt or disappointed you, and I understand why you're upset. Hindi ko gustong maging dahilan ng bigat ng loob mo. Thank you for being honest about how you feel.
+        <br><br>
+        I may not be perfect, but please know that I care about you deeply and I never take your love, effort, and presence for granted. I'm sorry for my mistake, and I'll do my best to make it right—not just through words, but through my actions too 🌷🌸🤍
+      </p>
+      <button class="next-btn" onclick="goToHeart()">continue 💙</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: MATH HEART -->
+  <div class="page hidden" id="heart-page">
+    <canvas id="heart-canvas"></canvas>
+    <div class="heart-overlay">
+      <div class="heart-formula">y = x²/³ + 0.8 · cos(kx) · √(3 − x²)</div>
+      <div class="heart-label">A Mathematical Way to Say</div>
+      <div class="heart-love">I Love You 💙</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
