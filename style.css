@@ -1,0 +1,380 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0d0015;
+  font-family: 'Quicksand', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+#stars-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.8s ease;
+}
+
+.page.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#passcode-page {
+  background: radial-gradient(ellipse at center, #1a0030 0%, #0d0015 70%);
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px #c084fc);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(192,132,252,0.3);
+  border-radius: 20px;
+  padding: 40px 35px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 40px rgba(192,132,252,0.15), inset 0 0 30px rgba(192,132,252,0.05);
+  max-width: 360px;
+  width: 90%;
+}
+
+.card h2 {
+  font-family: 'Dancing Script', cursive;
+  color: #e9d5ff;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  text-shadow: 0 0 20px #c084fc;
+}
+
+.card p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.dots-display {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  height: 16px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(192,132,252,0.5);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.dot.filled {
+  background: #c084fc;
+  border-color: #c084fc;
+  box-shadow: 0 0 10px #c084fc;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 240px;
+  margin: 0 auto 15px;
+}
+
+.num-btn {
+  background: rgba(192,132,252,0.1);
+  border: 1px solid rgba(192,132,252,0.25);
+  border-radius: 12px;
+  color: #f3e8ff;
+  font-size: 1.3rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.num-btn:hover,
+.num-btn:active {
+  background: rgba(192,132,252,0.3);
+  border-color: #c084fc;
+  box-shadow: 0 0 15px rgba(192,132,252,0.4);
+  transform: scale(0.95);
+}
+
+.num-btn.del {
+  font-size: 1rem;
+  color: #f9a8d4;
+  border-color: rgba(249,168,212,0.25);
+  background: rgba(249,168,212,0.08);
+}
+
+.num-btn.del:hover {
+  background: rgba(249,168,212,0.2);
+  border-color: #f9a8d4;
+}
+
+#error-msg {
+  color: #f9a8d4;
+  font-size: 0.8rem;
+  height: 18px;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+#error-msg.show { opacity: 1; }
+
+#forgive-page {
+  background: radial-gradient(ellipse at center, #1a0030 0%, #0d0015 70%);
+  overflow: hidden;
+}
+
+.forgive-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(192,132,252,0.3);
+  border-radius: 24px;
+  padding: 40px 35px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 50px rgba(192,132,252,0.2);
+  max-width: 360px;
+  width: 90%;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.cat-emoji {
+  font-size: 4rem;
+  animation: wobble 2s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.crying-eyes {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.6);
+  margin: 8px 0;
+  letter-spacing: 2px;
+}
+
+.forgive-title {
+  font-family: 'Dancing Script', cursive;
+  color: #e9d5ff;
+  font-size: 1.9rem;
+  margin: 12px 0 4px;
+  text-shadow: 0 0 20px #c084fc;
+}
+
+.forgive-sub {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+  height: 50px;
+  align-items: center;
+}
+
+.yes-btn {
+  background: linear-gradient(135deg, #7c3aed, #c084fc);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 12px 35px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(192,132,252,0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.yes-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(192,132,252,0.8);
+}
+
+.no-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: absolute;
+  right: 0;
+}
+
+#message-page {
+  background: radial-gradient(ellipse at center, #1a0030 0%, #0d0015 70%);
+}
+
+.msg-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(192,132,252,0.3);
+  border-radius: 24px;
+  padding: 35px 30px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 50px rgba(192,132,252,0.2);
+  max-width: 400px;
+  width: 90%;
+  max-height: 88vh;
+  overflow-y: auto;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.msg-emoji {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  56% { transform: scale(1); }
+}
+
+.msg-title {
+  font-family: 'Dancing Script', cursive;
+  color: #e9d5ff;
+  font-size: 2rem;
+  text-shadow: 0 0 20px #c084fc;
+  margin-bottom: 20px;
+}
+
+.msg-body {
+  color: rgba(240,220,255,0.9);
+  font-size: 1rem;
+  line-height: 1.85;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #0277bd, #4fc3f7);
+  border: none;
+  border-radius: 50px;
+  color: #000a1a;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 12px 35px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(79,195,247,0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.next-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: rgba(255,255,255,0.3);
+  transform: skewX(-20deg);
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% { left: -60%; }
+  100% { left: 150%; }
+}
+
+.next-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 45px rgba(79,195,247,0.8);
+}
+
+#heart-page {
+  background: #000510;
+}
+
+#heart-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+}
+
+.heart-overlay {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+  padding: 20px;
+}
+
+.heart-formula {
+  font-family: 'Quicksand', sans-serif;
+  color: rgba(79,195,247,0.6);
+  font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: glowIn 1.5s 0.5s forwards;
+}
+
+.heart-label {
+  font-family: 'Dancing Script', cursive;
+  color: rgba(200,235,255,0.7);
+  font-size: clamp(1rem, 4vw, 1.6rem);
+  opacity: 0;
+  animation: glowIn 1.5s 1s forwards;
+}
+
+.heart-love {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  color: #e3f2fd;
+  text-shadow: 0 0 30px #4fc3f7, 0 0 60px rgba(79,195,247,0.5), 0 0 100px rgba(79,195,247,0.2);
+  opacity:
